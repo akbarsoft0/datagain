@@ -13,7 +13,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import dataTableSlice from "./dataTableSlice";
-import EventCalendarSlice from "./EventCalendarSlice";
+import EventCalendarSlice from "./eventCalendarSlice";
 
 // Persist configuration
 const persistConfig = {
