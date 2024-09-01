@@ -1,5 +1,5 @@
-// "use client";
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+"use client";
+import { configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,

@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 type AddEventProps = {
   day: Date | null;
-  handleOpen: () => void;  // Add handleOpen to props
+  handleClose: () => void; 
 };
 
-const AddEvent: React.FC<AddEventProps> = ({ day, handleOpen }) => {
+const AddEvent: React.FC<AddEventProps> = ({ day, handleClose }) => {
   const [selectedEvent, setSelectedEvent] = useState<Partial<Event>>({});
   const [isReminder, setIsReminder] = useState(false);
   const [newEvent, setNewEvent] = useState({
@@ -53,7 +53,7 @@ const AddEvent: React.FC<AddEventProps> = ({ day, handleOpen }) => {
 
     const eventToSave: Event = {
       ...newEvent,
-      date: new Date(newEvent.date || day).toISOString(),
+      date: new Date(newEvent.date ?? day ?? new Date()).toISOString(),
       id: selectedEvent.id || events.length + 1,
     };
 
@@ -64,7 +64,7 @@ const AddEvent: React.FC<AddEventProps> = ({ day, handleOpen }) => {
     }
 
     // Close the modal after saving the event
-    handleOpen();
+    handleClose();
 
     // Reset the form fields
     setSelectedEvent({});

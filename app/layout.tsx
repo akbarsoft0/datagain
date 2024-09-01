@@ -22,14 +22,9 @@ export default function RootLayout({
       <body className={`flex ${inter.className}`}>
         <StoreProvider>
           <Sidebar>
-            <SidebarItem icon={<FaHouse />} size={20} text="home" active />
-            <SidebarItem
-              icon={<FaCalendarDays />}
-              size={20}
-              text="calendar"
-              alert
-            />
-            <SidebarItem icon={<FaTable />} size={20} text="table" />
+            <SidebarItem icon={<FaHouse />} text="home" active />
+            <SidebarItem icon={<FaCalendarDays />} text="calendar" alert />
+            <SidebarItem icon={<FaTable />} text="table" />
           </Sidebar>
           {children}
         </StoreProvider>

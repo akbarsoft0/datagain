@@ -15,7 +15,7 @@ const Table = (): JSX.Element => {
 
   useEffect(() => {
     if (!selectedUser.id) setSelectedUser({});
-  }, [users]);
+  }, [selectedUser.id]);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,14 +1,25 @@
 "use client";
-import { useState, createContext, useContext } from "react";
+
+import { useState, createContext, useContext, ReactNode } from "react";
 import { FaUser, FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
-import logo from "@/public/next.svg";
 import Image from "next/image";
 import Link from "next/link";
+import logo from "@/public/next.svg";
 
-const SidebarContext = createContext();
-const Sidebar = ({ children }) => {
-  const [expanded, setExpanded] = useState(false);
+interface SidebarContextType {
+  expanded: boolean;
+}
+
+const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
+
+interface SidebarProps {
+  children: ReactNode;
+}
+
+const Sidebar = ({ children }: SidebarProps) => {
+  const [expanded, setExpanded] = useState<boolean>(false);
+
   return (
     <aside
       className={`sticky top-0 h-screen transition-all ${
@@ -35,7 +46,7 @@ const Sidebar = ({ children }) => {
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
         <div className="border-t flex p-3">
-          <button className="p-2 rounded-1 bg-gray-50 hover:bg-gray-200">
+          <button className="p-2 rounded-full bg-gray-50 hover:bg-gray-200">
             <FaUser />
           </button>
           <div
@@ -47,7 +58,7 @@ const Sidebar = ({ children }) => {
               <h4 className="font-semibold">Akbar</h4>
               <span className="text-xs text-gray-600">Akbar@gmail.com</span>
             </div>
-            <button className="p-2 rounded-full bg-gray-50 hover:bg-gray-00">
+            <button className="p-2 rounded-full bg-gray-50 hover:bg-gray-200">
               <FaEllipsisVertical size={20} />
             </button>
           </div>
@@ -56,8 +67,22 @@ const Sidebar = ({ children }) => {
     </aside>
   );
 };
-export function SidebarItem({ icon, text, active, alert }) {
-  const { expanded } = useContext(SidebarContext);
+
+interface SidebarItemProps {
+  icon: ReactNode;
+  text: string;
+  active?: boolean;
+  alert?: boolean;
+}
+
+export function SidebarItem({ icon, text, active, alert }: SidebarItemProps) {
+  const context = useContext(SidebarContext);
+
+  if (!context) {
+    throw new Error("SidebarItem must be used within a SidebarContext provider");
+  }
+
+  const { expanded } = context;
 
   return (
     <li>
@@ -67,7 +92,7 @@ export function SidebarItem({ icon, text, active, alert }) {
             ? "bg-gradient-to-tr from-cyan-200 to-indigo-100 text-cyan-400"
             : "hover:bg-cyan-50 text-gray-600"
         }`}
-        href={`/${text === "home"? "calendar" : text}`}
+        href={`/${text === "home" ? "" : text}`}
       >
         {icon}
         <span
